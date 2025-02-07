@@ -1,0 +1,51 @@
+<h1 class="para">Reactiveform</h1>
+<form [formGroup]="profileForm" (ngSubmit)="userInfo()">
+    <label for="first-name"> FirstName: </label><br>
+    <input id="first-name" type="text" formControlName="firstName">
+    <br>
+    <div>
+      @if (profileForm.controls['firstName'].errors?.['required'] && profileForm.controls['firstName'].touched) {
+        <span>FirstName is required</span>
+      }
+    </div>
+    <label for="last-name"> LastName: </label><br>
+    <input id="last-name" type="text" formControlName="lastName">
+    <br>
+    <div>
+      @if (profileForm.controls['lastName'].errors?.['required'] && profileForm.controls['lastName'].touched) {
+        <span>LastName is required</span>
+      }
+    </div>
+    <label for="Email">Email: </label>
+    <br>
+    <input id="Email" type="email" formControlName="email">
+    <br>
+    <div>
+      @if (profileForm.controls['email'].errors?.['required'] && profileForm.controls['email'].touched) {
+        <span>Email is Invalid</span>
+      }
+    </div>
+
+    <label for="password">Password: </label><br>
+    <input id="password" type="password" formControlName="password"><br>
+
+    <label for="confirm">Confirm Password</label><br>
+    <input id="confirm" type="password" formControlName="confirmPassword">
+    <br>
+    <div>
+      @if (profileForm.value.password !== profileForm.value.confirmPassword) {
+        <span>Confirm Password does not match</span>
+      }
+    </div>
+    <input type="checkbox" formControlName="isAgree"><span class="isagree">I have read and agree to the Terms</span>
+    <br>
+    <div>
+      @if (profileForm.value.isAgree == false && profileForm.controls['isAgree'].touched) {
+        <span>You must agree to the Terms</span>
+      }
+    </div>
+    <div class="btn">
+    <button type="submit" [disabled]="profileForm.invalid || profileForm.value.password !== profileForm.value.confirmPassword || !profileForm.value.isAgree ">Submit</button>
+    <button type="reset">Reset</button>
+  </div>
+  </form>
